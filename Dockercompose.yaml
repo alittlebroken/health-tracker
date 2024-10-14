@@ -6,7 +6,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: h34lThTr4ck3r!
+      POSTGRES_PASSWORD: h34lThTr4ck3r
       POSTGRES_USER: htuser
       POSTGRES_DB: htracker
       PGDATA: /var/lib/postgresql/data/pgdata
