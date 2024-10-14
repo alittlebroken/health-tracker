@@ -1,3 +1,6 @@
+/* Import the configuration */
+const config = require('./config/config');
+
 /* Import the Express library and it's supporting libraries*/
 const express = require('express');
 const cors = require('cors');
