@@ -1,11 +1,11 @@
 const morgan = require('morgan');
 const rfs = require('rotating-file-stream');
-const path = require('path');
+const config = require('./config');
 
 /* Setup the stream for the access log */
 const accessRfs = rfs.createStream('access.log', {
     interval: '1d',
-    path: path.join(__dirname, '../logs')
+    path: config.LOG_ACCESS_LOC
 })
 
 /* set up the error console reporting */
