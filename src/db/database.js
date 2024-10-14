@@ -1,5 +1,6 @@
 const pg = require('pg');
 const { Pool } = pg;
+const config = require('../config/config');
 
 /* set up a connection pool to the DB */
 const pool = new Pool({
@@ -7,11 +8,11 @@ const pool = new Pool({
     user: config.DB_USER,
     port: config.DB_PORT,
     database: config.DB_NAME,
-    password: config.DN_PASS
+    password: config.DB_PASS
 });
 
 module.exports = {
-    query: (sql, values = []) => {
-        pool.query(sql, values);
+    query: async (sql, values = []) => {
+        return await pool.query(sql, values);
     },
 }
