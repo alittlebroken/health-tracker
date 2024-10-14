@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 /* Import the correct environmental vars needed */
 
