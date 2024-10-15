@@ -6,6 +6,10 @@ const express = require('express');
 const cors = require('cors');
 const logging = require('./config/morgan');
 
+/* Import the API Documentation utilizing swagger ui */
+const swaggerUI = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
+
 /* Import any routes we need */
 
 /* Create an instance of the app */
@@ -17,6 +21,9 @@ app.use(cors());
 /* Setup the logging for the app */
 app.use(logging.accessRotate);
 app.use(logging.consoleError);
+
+/* Serve the Swagger Documentation */
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 /* Assign routes to the express app */
 
