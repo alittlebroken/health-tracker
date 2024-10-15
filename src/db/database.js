@@ -1,6 +1,6 @@
+const config = require('../config/config');
 const pg = require('pg');
 const { Pool } = pg;
-const config = require('../config/config');
 
 /* set up a connection pool to the DB */
 const pool = new Pool({
