@@ -1,5 +1,6 @@
 /* Import the service to be used for this controller */
 const authService = require('../services/Auth.service.js');
+const logger = require('../config/winston');
 
 /**
  * Registers a user
@@ -14,6 +15,7 @@ const registerUser = async (req, res) => {
         const { email, password } = req.body;
 
         if(email === '' || typeof email !== 'string'){
+            logger.log('error', `[Auth Controller] -> registerUser: No valid email was supplied`);
             return res.status(404).json({
                 status: 404,
                 state: 'failure',
@@ -23,7 +25,7 @@ const registerUser = async (req, res) => {
         }
 
         if(password === '' || typeof password !== 'string'){
-
+            logger.log('error', `[Auth Controller] -> registerUser: No valid pasword was supplied`);
             return res.status(404).json({
                 status: 404,
                 state: 'failure',
@@ -38,6 +40,7 @@ const registerUser = async (req, res) => {
         
         /* Check the result sent back */
         if(!result || result.results.length < 1){
+            logger.log('error', `[Auth Controller] -> registerUser: The Auth service returned no records or encountered a problem.`);
             return res.status(500).send({
                 status: 500,
                 state: 'failure',
@@ -55,6 +58,9 @@ const registerUser = async (req, res) => {
         });
 
     } catch (error) {
+
+        /* Save the error to the log */
+        logger.log('error', `[Auth Controller] -> registerUser: ${error.message}`);
 
         return res.status(500).json({
             status: 500,

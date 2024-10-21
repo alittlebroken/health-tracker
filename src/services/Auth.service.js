@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 /* Custom packages */
 const db = require('../db/database');
 const config = require('../config/config');
+const logger = require('../config/winston');
 
 /**
  * Register a user within the database
@@ -18,6 +19,7 @@ const registerUser = async (email, password) => {
 
         /* Validate the passed in arguments */
         if(!email || typeof email !== 'string' || email === ''){
+            logger.log('error', `[Auth Service] -> registerUser: The supplied email was not correct or missing.`);
             return {
                 message: 'Email address is missing or incorrect',
                 results: []
@@ -25,6 +27,7 @@ const registerUser = async (email, password) => {
         }
 
         if(!password || typeof password !== 'string' || password === ''){
+            logger.log('error', `[Auth Service] -> registerUser: The supplied password was not correct or missing.`);
             return {
                 message: 'Password is missing or incorrect',
                 results: []
@@ -42,6 +45,7 @@ const registerUser = async (email, password) => {
 
         /* Ensure the creation was OK */
         if(!result || result.rows.length <= 0){
+            logger.log('error', `[Auth Service] -> registerUser: Either no result or an error was passed back by the DB.`);
             return {
                 message: 'There was a probem with the server',
                 results: []
@@ -55,6 +59,10 @@ const registerUser = async (email, password) => {
         };
 
     } catch(error) {
+
+        /* Log the error to the log file */
+        logger.log('error', `[Auth Service] -> registerUser: ${error.message}`);
+
         return {
             message: 'There was a problem with the server',
             results: []
