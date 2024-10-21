@@ -26,8 +26,10 @@ describe('Authentication', () => {
             const expectedReturnValue = {
                 status: 201,
                 state: 'ok',
-                message: 'User has been registered',
-                results: []
+                message: 'Registration successful',
+                results: [
+                    { id: 1, email: 'user@testemail.co.uk'}
+                ]
             }
 
             /* Mock out the backend functionality like the DB call */
@@ -40,7 +42,7 @@ describe('Authentication', () => {
             });
 
             /* Execute the test */
-            const res = await api.post('/auth/register').send(payload);
+            const res = await api.post('/register').send(payload);
 
             /* Check the values are as we expect */
             expect(res.statusCode).toBe(expectedStatus);
@@ -53,17 +55,17 @@ describe('Authentication', () => {
 
             /* Set the payload to send for the request */
             const payload = {
-                email: 'nouser@testemail',
+                email: '',
                 password: 'L3tsG3t!n'
             }
 
             /* What are the expected outcomes */
-            const expectedStatus = 400;
+            const expectedStatus = 404;
 
             const expectedReturnValue = {
-                status: 400,
-                state: 'failure - email',
-                message: 'Email address not provided or incorrect',
+                status: 404,
+                state: 'failure',
+                message: 'Email address is missing or incorrect',
                 results: []
             }
 
@@ -75,7 +77,7 @@ describe('Authentication', () => {
             });
 
             /* Execute the test */
-            const res = await api.post('/auth/register').send(payload);
+            const res = await api.post('/register').send(payload);
 
             /* Check the values are as we expect */
             expect(res.statusCode).toBe(expectedStatus);
@@ -93,12 +95,12 @@ describe('Authentication', () => {
             }
 
             /* What are the expected outcomes */
-            const expectedStatus = 400;
+            const expectedStatus = 404;
 
             const expectedReturnValue = {
-                status: 400,
-                state: 'failure - password',
-                message: 'Password not provided or not in the desired format',
+                status: 404,
+                state: 'failure',
+                message: 'Password is missing or incorrect',
                 results: []
             }
 
@@ -110,7 +112,7 @@ describe('Authentication', () => {
             });
 
             /* Execute the test */
-            const res = await api.post('/auth/register').send(payload);
+            const res = await api.post('/register').send(payload);
 
             /* Check the values are as we expect */
             expect(res.statusCode).toBe(expectedStatus);
@@ -132,7 +134,7 @@ describe('Authentication', () => {
 
             const expectedReturnValue = {
                 status: 500,
-                state: 'Failure - server',
+                state: 'failure',
                 message: 'There was a problem with the server',
                 results: []
             }
@@ -145,7 +147,7 @@ describe('Authentication', () => {
             });
 
             /* Execute the test */
-            const res = await api.post('/auth/register').send(payload);
+            const res = await api.post('/register').send(payload);
 
             /* Check the values are as we expect */
             expect(res.statusCode).toBe(expectedStatus);

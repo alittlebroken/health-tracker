@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router()
 
 /* Import the routes controllers */
-const controller = require('../../controllers/Auth/Auth.controller.js');
+const controller = require('../../controllers/Auth.controller.js');
 
 /* Import any middleware */
 
@@ -54,6 +54,6 @@ const controller = require('../../controllers/Auth/Auth.controller.js');
  *                   description: A list of the users registered
  *                   example: [{ id: 1, email: 'user.new@textcompany.org' }]
  */
-router.post('/register', controller.Register);
+router.post('/register', controller.registerUser);
 
 module.exports = router;
