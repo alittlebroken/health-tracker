@@ -4,7 +4,7 @@ const db = require('../src/db/database');
 
 const api = supertest(app);
 
-const controller = require('../src/controllers/Auth/Auth.controller');
+const controller = require('../src/controllers/Auth.controller');
 const service = require('../src/services/Auth.service.js');
 
 describe('Authentication controller', () => {
@@ -46,7 +46,7 @@ describe('Authentication controller', () => {
             const expectedReturnValues = {
                 status: 201,
                 state: 'ok',
-                message: 'User registered successfully',
+                message: 'Registration successful',
                 results: [
                     { id: 1, email: 'user.new@textcompany.org'}
                 ]
@@ -54,7 +54,7 @@ describe('Authentication controller', () => {
 
             /* Check the results of running the test are as we expect them to be */
             expect(mReq.status).toHaveBeenCalledWith(expectedStatus);
-            expect(mReq.json).toHaveBeenNthCalledWith(expectedReturnValues);
+            expect(mReq.json).toHaveBeenCalledWith(expectedReturnValues);
 
 
         }); // End of test
@@ -87,13 +87,13 @@ describe('Authentication controller', () => {
             const expectedReturnValues = {
                 status: 404,
                 state: 'failure',
-                message: 'Email is missing or incorrect',
+                message: 'Email address is missing or incorrect',
                 results: []
             };
 
             /* Check the results of running the test are as we expect them to be */
             expect(mReq.status).toHaveBeenCalledWith(expectedStatus);
-            expect(mReq.json).toHaveBeenNthCalledWith(expectedReturnValues);
+            expect(mReq.json).toHaveBeenCalledWith(expectedReturnValues);
 
 
         }); // End of test
@@ -132,7 +132,7 @@ describe('Authentication controller', () => {
 
             /* Check the results of running the test are as we expect them to be */
             expect(mReq.status).toHaveBeenCalledWith(expectedStatus);
-            expect(mReq.json).toHaveBeenNthCalledWith(expectedReturnValues);
+            expect(mReq.json).toHaveBeenCalledWith(expectedReturnValues);
 
 
         }); // End of test
@@ -145,7 +145,7 @@ describe('Authentication controller', () => {
             });
 
             jest.spyOn(service, 'registerUser').mockImplementation(() => {
-                throw new Error();
+                throw new Error('DB connection was reset during query');
             })
 
             /* Mock the req and res objects */
@@ -167,13 +167,13 @@ describe('Authentication controller', () => {
             const expectedReturnValues = {
                 status: 500,
                 state: 'failure',
-                message: 'There was a problem with the server.',
+                message: 'There was a problem with the server',
                 results: []
             };
 
             /* Check the results of running the test are as we expect them to be */
             expect(mReq.status).toHaveBeenCalledWith(expectedStatus);
-            expect(mReq.json).toHaveBeenNthCalledWith(expectedReturnValues);
+            expect(mReq.json).toHaveBeenCalledWith(expectedReturnValues);
 
 
         }); // End of test
