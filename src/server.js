@@ -19,6 +19,10 @@ const app = express();
 /* Assign the supporting libraries to the express app */
 app.use(cors());
 
+/* Set the options for handling JSON via the body of the request */
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 /* Setup the logging for the app */
 app.use(logging.accessRotate);
 app.use(logging.consoleError);
