@@ -4,6 +4,9 @@ require('dotenv').config();
 /* Base application config */
 const APP_PORT = process.env.APP_PORT;
 
+/* Enviornment the app is running under */
+const NODE_ENV = process.env.NODE_ENV;
+
 /* Logging config */
 const LOG_ACCESS_LOC = process.env.LOG_ACCESS_LOC;
 
@@ -19,6 +22,7 @@ const SEC_SALT_ROUNDS = process.env.SEC_SALT_ROUNDS;
 
 module.exports = {
     APP_PORT,
+    NODE_ENV,
     LOG_ACCESS_LOC,
     DB_USER,
     DB_PASS,
